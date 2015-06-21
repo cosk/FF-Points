@@ -1,0 +1,32 @@
+<div>
+<div id="errorMessage" style="color:red"></div>
+<script>
+function onSuccess(msg) {
+  document.getElementById("okMessage").innerHTML = msg;
+  document.getElementById("errorMessage").innerHTML = "";
+  document.getElementById("participants").value="";
+  document.getElementById("comment").value="";
+}
+function onFailure(error) {
+  document.getElementById("okMessage").innerHTML = "";
+  document.getElementById("errorMessage").innerHTML = error.message;
+}
+</script>
+<form id="logMeetingForm">
+Meeting participants and contributors to the forum discussion:
+<br/>
+<textarea name="participants" rows="5" cols="30" id="participants" placeholder="Comma-separated clannies who participated" required >
+</textarea>
+<br/>
+Short description:<br/>
+<input name="comment" type="text" size="30" id="comment" placeholder="For example &quot;kick discussion&quot;" />
+<br/>
+<input type="hidden" name="funcName" value="doLogMeeting" />
+<input type="button" value="Log"
+onclick="google.script.run
+  .withSuccessHandler(onSuccess)
+  .withFailureHandler(onFailure)
+  .runFormCallback(this.parentNode)" />
+</form>
+<div id="okMessage"></div>
+</div>

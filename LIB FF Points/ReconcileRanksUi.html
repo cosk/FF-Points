@@ -1,0 +1,37 @@
+<div>
+<div id="errorMessage" style="color:red"></div>
+<script>
+function onSuccess(msg) {
+  document.getElementById("okMessage").innerHTML = msg;
+  document.getElementById("errorMessage").innerHTML = "";
+  document.getElementById("reconcileRanksForm").style.visibility="hidden";
+}
+function onFailure(error) {
+  document.getElementById("okMessage").innerHTML = "";
+  document.getElementById("errorMessage").innerHTML = error.message;
+}
+</script>
+<? if ( names.length>0 ) { ?>
+<b>Change ranks</b>:<br/>
+<? for ( var i in names ) { ?>
+<nobr><?= formatName(names[i]) ?>: <?= oldRanks[i] ?> -> <?= newRanks[i] ?></nobr><br/>
+<? } ?>
+<? } else { ?>
+<ul>
+<li>Select changes to ranks.</li>
+<li>Summary of changes will appear here</li>
+<li>When ready - click the [Go] button</li>
+</ul>
+<? } ?>
+<form id="reconcileRanksForm">
+<input type="hidden" name="names" value="<?= names ?>">
+<input type="hidden" name="newRanks" value="<?= newRanks ?>">
+<input type="hidden" name="funcName" value="doReconcileRanks" />
+<input type="button" <?= names.length==0 ? "disabled" : "" ?> value="Go" id="formSubmitButton"
+onclick="google.script.run
+  .withSuccessHandler(onSuccess)
+  .withFailureHandler(onFailure)
+  .runFormCallback(this.parentNode)" />
+</form>
+<div id="okMessage"></div>
+</div>

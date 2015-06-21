@@ -1,0 +1,65 @@
+<div>
+<div id="errorMessage" style="color:red"></div>
+<script>
+function onSuccess(msg) {
+  document.getElementById("okMessage").innerHTML = msg;
+  document.getElementById("errorMessage").innerHTML = "";
+  document.getElementById("reconcileClanForm").style.visibility="hidden";
+}
+function onFailure(error) {
+  document.getElementById("okMessage").innerHTML = "";
+  document.getElementById("errorMessage").innerHTML = error.message;
+}
+function onFormSubmit() {
+  document.getElementById("formSubmitButton").disabled = "disabled";
+  document.getElementById("okMessage").innerHTML = "Working...";
+}
+</script>
+<p>
+<? if ( rename.length > 0 ) { ?>
+<b>Rename</b>:<br/>
+<? for ( var i in rename ) { ?>
+<nobr><?= formatName(rename[i][0]) ?> -> <?= formatName(rename[i][1]) ?></nobr><br/>
+<? } ?>
+<? } ?>
+</p><p>
+<? if ( del.length > 0 ) { ?>
+<b>Permanently remove</b>:<br/>
+<? for ( var i in del ) { ?>
+<nobr><?= formatName(del[i]) ?></nobr>
+<? } ?>
+<? } ?>
+</p>
+<? if ( add.length > 0 ) { ?>
+<b>Add</b>:<br/>
+<? for ( var i in add ) { ?>
+<nobr><?= formatName(add[i]) ?></nobr>
+<? } ?>
+<? } ?>
+
+<? if ( rename.length==0 && del.length==0 && add.length==0 ) { ?>
+<ul>
+<li>Select changes to the clan - clannies who left, joined or changed name.
+   Hover over clanmate names to see rank and XP - these may be useful to match old names to new names.<br>
+   If in doubt - add new names in game and check their previous name.
+</li>
+<li>Summary of changes will appear here</li>
+<li>When ready - click the [Go] button</li>
+</ul>
+<? } else { ?>
+<form id="reconcileClanForm">
+<input type="hidden" name="rename" value="<?= rename ?>">
+<input type="hidden" name="del" value="<?= del ?>">
+<input type="hidden" name="add" value="<?= add ?>">
+<input type="hidden" name="addRanks" value="<?= addRanks ?>">
+<input type="hidden" name="addXp" value="<?= addXp ?>">
+<input type="hidden" name="funcName" value="doReconcileClan" />
+<input type="button" value="Go" id="formSubmitButton"
+onclick="onFormSubmit();google.script.run
+  .withSuccessHandler(onSuccess)
+  .withFailureHandler(onFailure)
+  .runFormCallback(this.parentNode)" />
+</form>
+<? } ?>
+<div id="okMessage"></div>
+</div>

@@ -1,0 +1,54 @@
+<div>
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+<div id="errorMessage" style="color:red"></div>
+<script>
+function onSuccess(msg) {
+  document.getElementById("okMessage").innerHTML = msg;
+  document.getElementById("errorMessage").innerHTML = "";
+  document.getElementById("awardPoints").style.visibility = "hidden";
+}
+function onFailure(error) {
+  document.getElementById("okMessage").innerHTML = "";
+  document.getElementById("errorMessage").innerHTML = error.message;
+}
+</script>
+<? if ( names.length == 0 ) { ?>
+All FC ranks are up to date
+<? } else { ?>
+<table>
+<tr><th>Name</th><th>Old rank</th><th>New rank</th><th>Points</th></tr>
+<? for ( var i in names ) { ?>
+<tr><td><?=formatName(names[i])?></td><td><?=oldRanks[i]?></td><td><?=newRanks[i]?></td><td><?=points[i]?></td></tr>
+<? } ?>
+</table>
+<form id="logFcUprankForm">
+<input type="hidden" name="names" value="<?= names ?>">
+<input type="hidden" name="newRanks" value="<?= newRanks ?>">
+<input type="hidden" name="points" value="<?= points ?>">
+<br/>
+Optional short description:<br/>
+<input name="comment" type="text" size="30" id="comment" />
+<div id="awardPoints">
+Award points?
+<input type="hidden" name="funcName" value="doLogFcUprank" />
+<input type="button" value="Yes"
+onclick="google.script.run
+  .withSuccessHandler(onSuccess)
+  .withFailureHandler(onFailure)
+  .runFormCallback(this.parentNode.parentNode)" />
+<input type="button" value="No"
+onclick="google.script.host.close()" />
+</div>
+</form>
+<? } ?>
+<div id="okMessage"></div>
+</div>
