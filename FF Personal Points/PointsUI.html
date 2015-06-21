@@ -1,0 +1,22 @@
+<?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+<style>
+th, td {
+  padding: 4px;
+}
+</style>
+<h3>Fish Flinger clan points for <?= rsn ?></h3><br/>
+Total points: <b><?= totalPoints ?></b>
+<? if ( nextRank != null ) { ?>
+. Points to <?= nextRank ?>: <b><?= pointsToNextRank ?></b>
+<? } ?>
+<br/><br/>
+Recent point awards:<br/>
+<table>
+<tr style="text-align:left"><th>Date</th><th>Points</th><th>Description</th><th>Comment</th></tr>
+<? for ( var i in log ) { ?>
+<tr><td><?= log[i].timestamp ?></td>
+<td><?= log[i].points ?></td>
+<td><?= log[i].description ?></td>
+<td><?= log[i].comment ?></td></tr>
+<? } ?>
+</table>

@@ -1,0 +1,21 @@
+<?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+<script>
+function onSuccess(html) {
+  document.getElementById("ff").innerHTML=html;
+}
+function onFailure(error) {
+  document.getElementById("errorMessage").innerHTML = error.message;
+}
+</script>
+<div id="ff">
+<form onsubmit="return false;">
+Please enter your RuneScape name:<br/>
+<input type="text" name="RSN" size="20" />
+<input type="button" value="Continue" onclick="google.script.run
+.withSuccessHandler(onSuccess)
+.withFailureHandler(onFailure)
+.processRSN(this.parentNode)" />
+</form>
+
+<div id="errorMessage" style="color:red"><?=message==null?"":message?></div>
+</div>
