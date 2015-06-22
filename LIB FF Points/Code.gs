@@ -19,6 +19,7 @@ function createMenus() {
   .addItem("Event", "LibFFPoints.logEventUi")
   .addItem("Meeting", "LibFFPoints.logMeetingUi")
   .addItem("FC upranks", "LibFFPoints.logFcUprankUi")
+  .addItem("Manual points award", "LibFFPoints.logManualUi")
   .addItem("Refresh points", "LibFFPoints.updatePoints")
   .addToUi();
   ui.createMenu("Update")

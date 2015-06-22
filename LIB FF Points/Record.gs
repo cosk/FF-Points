@@ -179,6 +179,29 @@ function doLogFcUprank(formObject) {
 }
 
 /////////////////////////////////////////////////////////
+// Manual point awards
+
+function logManualUi() {
+  showHtmlTemplate("logManual",
+      {
+      }
+     );
+}
+
+function doLogManual(formObject) {
+  var name = formObject.name.trim();
+  name = validateName(name);
+  var sPoints = formObject.points;
+  var points = parseInt(sPoints);
+  if ( isNaN(points) )
+    throw "Number of points should be a whole number";
+  var comment = formObject.comment;
+  doRecordPoints(name, "MANUAL", "", points, comment);
+  updatePoints();
+  return "Recorded " + points + " " + plural("point", points) + " for " + formatName(name);
+}
+
+/////////////////////////////////////////////////////////
 // XP
 
 function recordXp() {

@@ -1,0 +1,35 @@
+<div>
+<div id="errorMessage" style="color:red"></div>
+<script>
+function onSuccess(msg) {
+  document.getElementById("okMessage").innerHTML = msg;
+  document.getElementById("errorMessage").innerHTML = "";
+  document.getElementById("clanmate").value="";
+}
+function onFailure(error) {
+  document.getElementById("okMessage").innerHTML = "";
+  document.getElementById("errorMessage").innerHTML = error.message;
+}
+</script>
+<form id="logManualForm">
+Clanmate:
+<br/>
+<input name="name" type="text" width="10" id="clanmate" required />
+<br/>
+Points to award (can be negative):
+<br/>
+<input name="points" type="number" width="10" id="points" required />
+<br/>
+Description:<br/>
+<textarea name="comment" rows="3" cols="30" id="comment" placeholder="For example &quot;Alt of c1anmat3&quot; or &quot;Correction for error made on MM/DD/YY&quot;"
+></textarea>
+<br/>
+<input type="hidden" name="funcName" value="doLogManual" />
+<input type="button" value="Log"
+onclick="google.script.run
+  .withSuccessHandler(onSuccess)
+  .withFailureHandler(onFailure)
+  .runFormCallback(this.parentNode)" />
+</form>
+<div id="okMessage"></div>
+</div>
