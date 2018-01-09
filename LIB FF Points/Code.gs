@@ -24,7 +24,9 @@ function createMenus() {
   .addToUi();
   ui.createMenu("Update")
   .addItem("Clan", "LibFFPoints.showClanReconciliation")
+  .addItem("Clan - Update side bar", "LibFFPoints.refreshClanSidebar")
   .addItem("Ranks", "LibFFPoints.showRankReconciliation")
+  .addItem("Ranks - Update side bar", "LibFFPoints.refreshRankSidebar")
   .addItem("Refresh from runescape.com", "LibFFPoints.initReconciliation")
   .addToUi();
 }
@@ -113,9 +115,13 @@ function collateLog() {
 }
 
 function showModalError(msg) {
-  var template = HtmlService.createTemplateFromFile("ErrorMessage");
-  template.errorMessage = msg;
-  var html = template.evaluate()
-  .setSandboxMode(HtmlService.SandboxMode.IFRAME);
-  SpreadsheetApp.getUi().showModalDialog(html, "Error");
+  try {
+    var template = HtmlService.createTemplateFromFile("ErrorMessage");
+    template.errorMessage = msg;
+    var html = template.evaluate()
+    .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+    SpreadsheetApp.getUi().showModalDialog(html, "Error");
+  } catch ( e ) {
+    SpreadsheetApp.getActive().toast(msg);
+  }
 }

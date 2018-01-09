@@ -6,6 +6,11 @@ function showClanReconciliation() {
   reconcileClanUi();
 }
 
+function refreshClanSidebar() {
+  SheetProvider.getReconcileClan().activate();
+  reconcileClanUi();
+}
+
 ///////////////////////////////////////////////////////////////////////
 /** Initialize clan reconciliation sheet unless it has been initialized recently */
 function refreshClanReconciliation() {

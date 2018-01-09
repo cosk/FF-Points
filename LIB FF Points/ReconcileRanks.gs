@@ -6,6 +6,11 @@ function showRankReconciliation() {
   reconcileRanksUi();
 }
 
+function refreshRankSidebar() {
+  SheetProvider.getRanks().activate();
+  reconcileRanksUi();
+}
+
 ///////////////////////////////////////////////////////////////////////
 /** Initialize rank reconciliation sheet unless it has been initialized recently */
 function refreshRankReconciliation() {

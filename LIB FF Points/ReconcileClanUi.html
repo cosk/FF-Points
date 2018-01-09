@@ -8,11 +8,18 @@ function onSuccess(msg) {
 }
 function onFailure(error) {
   document.getElementById("okMessage").innerHTML = "";
-  document.getElementById("errorMessage").innerHTML = error.message;
+  document.getElementById("errorMessage").innerHTML = formatError(error);
 }
 function onFormSubmit() {
   document.getElementById("formSubmitButton").disabled = "disabled";
   document.getElementById("okMessage").innerHTML = "Working...";
+}
+function formatError(error) {
+  if ( error.stack == null ) {
+    return error.toString();
+  } else {
+    return error.stack.toString().substr(0,300);
+  }
 }
 </script>
 <p>
